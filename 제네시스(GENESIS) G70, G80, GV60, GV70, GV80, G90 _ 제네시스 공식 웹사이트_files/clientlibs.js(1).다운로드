@@ -1,0 +1,22 @@
+$(function(){
+	var lang = geneP2.lanLoc;
+	var cookieUse = $('#cookie-layer').data('cookie-use');
+
+	if(cookieUse == 'Y'){
+		if(getCookie('kr_agree_'+lang) != 'y'){
+			window.setTimeout(function () {
+				$('a[data-layer-target="#cookie-layer"]').click();
+			}, 30);
+		}
+
+		$('#cookie-layer .cm-btn.cookie-confirm').on('click', function() {
+			// 앱보안점검
+			// 쿠키정보 secure 추가 요청
+			var date = new Date();
+			date.setTime(date.getTime() + 365*24*60*60*1000);
+			document.cookie = 'kr_agree_'+lang+'=y; secure; expires='+date.toUTCString() + ';path=/';
+			$('#cookie-layer .js-layer-closer').click();
+		});
+	}
+
+});

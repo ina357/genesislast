@@ -1,0 +1,258 @@
+.type-dark .standard-popup .cm-btn {
+  background-color: #fff;
+}
+
+.type-dark .standard-popup .cm-btn:after {
+  border-color: #111;
+}
+
+.type-dark .standard-popup .cm-btn .text {
+  color: #000;
+}
+
+.type-dark .standard-popup .cm-btn .masker {
+  background-color: #111;
+}
+
+.type-dark .standard-popup .cm-btn .masker:after {
+  border-color: #111;
+}
+
+.type-dark .standard-popup .cm-btn .masker span {
+  color: #fff;
+}
+
+.standard-popup .cm-btn {
+  background-color: #111;
+}
+
+.standard-popup .cm-btn:after {
+  z-index: 10;
+  border-color: #111;
+}
+
+.standard-popup .cm-btn .text {
+  color: #fff;
+}
+
+.standard-popup .cm-btn .masker {
+  background-color: #fff;
+}
+
+.standard-popup .cm-btn .masker:after {
+  z-index: 10;
+  border-color: #111;
+}
+
+.standard-popup .cm-btn .masker span {
+  color: #000;
+}
+
+.standard-popup.cm-layer.type-alert .cm-layer__wrapper {
+  margin: 30px 0;
+  margin: 3rem 0;
+}
+
+.standard-popup__tab-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  -js-display: flex;
+  display: flex;
+  margin-bottom: 40px;
+  margin-bottom: 4rem;
+}
+
+.standard-popup__tab-item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.standard-popup__tab-item a {
+  display: block;
+  font-size: 16px;
+  font-size: 1.6rem;
+  color: #757575;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 46px;
+  line-height: 4.6rem;
+}
+
+.standard-popup__tab-item.is-active a {
+  color: #000;
+  border-color: #000;
+}
+
+.standard-popup__tab-content {
+  padding-bottom: 58px;
+  padding-bottom: 5.8rem;
+  margin-top: 15px;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.standard-popup__img {
+  margin-bottom: 37px;
+  margin-bottom: 3.7rem;
+}
+
+.standard-popup__img img {
+  width: 100%;
+}
+
+.standard-popup__title {
+  font-size: 18px;
+  font-size: 1.8rem;
+  color: #000;
+}
+
+.standard-popup__desc {
+  margin-top: 13px;
+  margin-top: 1.3rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+  color: #262626;
+  line-height: 28px;
+  line-height: 2.8rem;
+}
+
+.standard-popup__cta {
+  margin-top: 30px;
+  margin-top: 3rem;
+}
+
+.standard-popup__cta .cm-btn-more {
+  font-size: 16px;
+  font-size: 1.6rem;
+}
+
+.standard-popup__check-wrap {
+  padding: 24px 40px;
+  padding: 2.4rem 4rem;
+  background: #f8f8f8;
+  text-align: left;
+}
+
+.standard-popup__check-wrap .cm-checkbox__label {
+  padding-left: 32px;
+  padding-left: 3.2rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+}
+
+.standard-popup .cm-btn {
+  font-size: 16px;
+  font-size: 1.6rem;
+  min-width: 240px;
+  min-width: 24rem;
+  height: 56px;
+  height: 5.6rem;
+  line-height: 58px;
+  line-height: 5.8rem;
+}
+
+.standard-popup .cm-btn .masker span {
+  height: 56px;
+  height: 5.6rem;
+  line-height: 58px;
+  line-height: 5.8rem;
+}
+
+.type-dark .standard-popup .cm-layer__wrapper {
+  border: 1px solid #222;
+}
+
+.type-dark .standard-popup .cm-layer__title {
+  border: 0;
+}
+
+.type-dark .standard-popup .cm-layer__content {
+  background: #111;
+}
+
+.type-dark .standard-popup .standard-popup__title {
+  color: #fff;
+}
+
+.type-dark .standard-popup .standard-popup__desc {
+  color: #ccc;
+}
+
+.type-dark .standard-popup .standard-popup__tab-item a {
+  color: #808080;
+  border-color: #333;
+}
+
+.type-dark .standard-popup .standard-popup__tab-item.is-active a {
+  color: #fff;
+  border-color: #fff;
+}
+
+.type-dark .standard-popup .standard-popup__cta .cm-btn-more {
+  color: #fff;
+}
+
+.type-dark .standard-popup .standard-popup__cta .cm-btn-more span:before {
+  background: #fff;
+}
+
+.type-dark .standard-popup .standard-popup__check-wrap {
+  background: #151515;
+}
+
+.type-dark .standard-popup .standard-popup__check-wrap .cm-checkbox__label {
+  color: #ccc;
+}
+
+.type-dark .standard-popup .cm-btn:after {
+  border-color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .standard-popup__tab-list {
+    margin-bottom: 30px;
+    margin-bottom: 3rem;
+  }
+  .standard-popup__tab-item a {
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 43px;
+    line-height: 4.3rem;
+  }
+  .standard-popup__tab-content {
+    padding-bottom: 40px;
+    padding-bottom: 4rem;
+  }
+  .standard-popup__img {
+    margin-bottom: 27px;
+    margin-bottom: 2.7rem;
+  }
+  .standard-popup__desc {
+    margin-top: 8px;
+    margin-top: 0.8rem;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 25px;
+    line-height: 2.5rem;
+  }
+  .standard-popup__cta {
+    margin-top: 32px;
+    margin-top: 3.2rem;
+  }
+  .standard-popup__cta .cm-btn-more {
+    font-size: 14px;
+    font-size: 1.4rem;
+  }
+  .standard-popup__check-wrap {
+    padding: 18px 25px;
+    padding: 1.8rem 2.5rem;
+  }
+  .standard-popup__check-wrap .cm-checkbox__label {
+    padding-left: 28px;
+    padding-left: 2.8rem;
+    font-size: 14px;
+    font-size: 1.4rem;
+  }
+}

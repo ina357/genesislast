@@ -1,0 +1,5 @@
+.cp-freecode:after {
+  display: block;
+  clear: both;
+  content: '';
+}

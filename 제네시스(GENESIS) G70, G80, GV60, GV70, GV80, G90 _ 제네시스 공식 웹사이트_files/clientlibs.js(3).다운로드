@@ -1,0 +1,239 @@
+(function (global, factory) {
+    global = global;
+    global.g2 = global.g2 || {};
+    global.g2.cpStandardVideo = global.g2.cpStandardVideo || {};
+    global.g2.cpStandardVideo.Component = factory();
+}(this, function () { 'use strict';
+
+    var Component = (function (isUndefined) {
+        var win = window,
+            $ = win.jQuery,
+            Util = win.G2.util;
+        function Component (container, args) {
+            if (!(this instanceof Component)) {
+                return new Component(container, args);
+            }
+            var defParams = {
+                obj : container,
+                foldInner : '.fold-text-inner',
+                foldInnerBtn : '.fold-text-btn',
+                foldDescWrap : '.fold-desc-wrap',
+                foldDescInner : '.fold-desc-inner',
+                classAttr : {
+                    heightfull : 'is-heightfull',
+                    opened : 'is-opened'
+                },
+                ariaAttr : {
+                    expanded : 'aria-expanded'
+                },
+                isFoldActive : false,
+                customEvent : '.Component' + (new Date()).getTime() + Math.random(),
+                resizeStart : null
+            };
+            this.opts = Util.def(defParams, (args || {}));
+            if (!(this.obj = $(this.opts.obj)).length) return;
+            this.init();
+        }
+        Component.prototype = {
+            init : function () {
+                this.setElements();
+                this.resizeFunc();
+                this.bindEvents(true);
+            },
+            setElements : function () {
+                this.foldInner = this.obj.find(this.opts.foldInner);
+                this.foldInnerBtn = this.foldInner.find(this.opts.foldInnerBtn);
+                this.foldDescWrap = this.foldInner.find(this.opts.foldDescWrap);
+                this.foldDescInner = this.foldDescWrap.find(this.opts.foldDescInner);
+            },
+            changeEvents : function (event) {
+                var events = [],
+                    eventNames = event.split(' ');
+                for (var key in eventNames) {
+                    events.push(eventNames[key] + this.opts.customEvent);
+                }
+                return events.join(' ');
+            },
+            bindEvents : function (type) {
+                if (type) {
+                    $(win).on(this.changeEvents('resize orientationchange'), $.proxy(this.resizeFunc, this));
+                    this.foldInnerBtn.on(this.changeEvents('click'), $.proxy(this.foldInnerBtnClick, this));
+                } else {
+                    $(win).off(this.changeEvents('resize orientationchange'));
+                    this.foldInnerBtn.off(this.changeEvents('click'));
+                }
+            },
+            resizeFunc : function () {
+                this.winWidth = Util.winSize().w;
+                if (this.opts.resizeStart == null) {
+                    this.opts.resizeStart = this.winWidth;
+                    this.resizeAnimateFunc();
+                }
+                win.clearTimeout(this.resizeEndTime);
+                this.resizeEndTime = win.setTimeout($.proxy(this.resizeEndFunc, this), 150);
+            },
+            resizeEndFunc : function () {
+                this.opts.resizeStart = null;
+                Util.cancelAFrame.call(win, this.resizeRequestFrame);
+            },
+            resizeAnimateFunc : function () {
+                this.setLayout();
+                this.resizeRequestFrame = Util.requestAFrame.call(win, $.proxy(this.resizeAnimateFunc, this));
+            },
+            setLayout : function () {
+                var winHeight = Util.winSize().h,
+                    fullCondition = winHeight >= 1080;
+                this.obj.toggleClass(this.opts.classAttr.heightfull, fullCondition);
+                if (this.opts.isFoldActive) {
+                    this.foldLayout(true, 0);
+                }
+            },
+            foldInnerBtnClick : function (e) {
+                e.preventDefault();
+                var _targetBtn = $(e.currentTarget);
+                this.opts.isFoldActive = !this.opts.isFoldActive;
+                this.foldView(_targetBtn);
+                this.foldLayout(this.opts.isFoldActive);
+            },
+            foldView : function (targetBtn) {
+                this.foldInner.toggleClass(this.opts.classAttr.opened, this.opts.isFoldActive);
+                if (this.foldInner.hasClass(this.opts.classAttr.opened)) {
+                    targetBtn.attr(this.opts.ariaAttr.expanded, 'true');
+                } else {
+                    targetBtn.attr(this.opts.ariaAttr.expanded, 'false');
+                }
+            },
+            foldLayout : function (type, speed) {
+                var foldDescInnerHeight = this.foldDescInner.outerHeight(true);
+                Util.findFocus(this.foldInner);
+                if (type) {
+                    this.foldDescWrap.css('height', foldDescInnerHeight);
+                } else {
+                    this.foldDescWrap.css('height', '');
+                }
+            },
+            reInit : function (e) {
+                // Global Callback
+            }
+        };
+
+        return Component;
+    })();
+    return Component;
+
+}));
+
+(function (global, factory) {
+    $(function () {
+        factory();
+    });
+}(this, function () { 'use strict';
+
+    var Component = (function (isUndefined) {
+        var win = window,
+            $ = win.jQuery,
+            Util = win.G2.util;
+        function Component (args) {
+            var defParams = {
+                obj : '.cp-standard-video'
+            };
+            this.opts = Util.def(defParams, (args || {}));
+            if (!(this.obj = $(this.opts.obj)).length) return;
+            this.init();
+        }
+        Component.prototype = {
+            init : function () {
+                this.callComponent();
+            },
+            callComponent : function () {
+                for (var i = 0, max = this.obj.length; i < max; i++) {
+                    new win.g2.cpStandardVideo.Component(this.obj.eq(i));
+                }
+            }
+        };
+        return new Component();
+    })();
+    return Component;
+
+}));
+
+(function(extension){
+	$(function(){  
+		var popIds_VS1A = [];
+		
+		$('div[data-check="share-VS1A"]').each(function(){
+			popIds_VS1A.push($(this).data('component-id'));
+		});
+		
+		for(var i=0; i<popIds_VS1A.length; i++){
+			var popId_VS1A = popIds_VS1A[i];
+			//console.log('(VS1A) popId_VS1A : ' + popId_VS1A);  
+			
+			var url = parseUri(window.location.href);
+			if(url.queryKey.sns){
+				 if(popId_VS1A == url.queryKey.sns.substring(4)){
+					 $('.' + popId_VS1A).attr('id', popId_VS1A);
+					 document.getElementById(popId_VS1A).scrollIntoView();
+					 
+					 $('.' + popId_VS1A + ' .btn-layer.js-layer-opener').click()
+				 }
+			}
+			
+			$('.' + popId_VS1A + ' .share-item-link').on('click', function(e){
+				if($(this).find('.js-svg-icon').data('icon') != 'svg-download'){
+					e.preventDefault();
+					
+					var cUrl = window.location.href; 
+					var sParam = 'VS1A'+$(this).parents('.cp-standard-video').data('component-id');
+					var sUrl = extension.updateURLParameter(cUrl, 'sns', sParam);
+					
+					var cParam = '0';
+					sUrl = extension.updateURLParameter(sUrl, 'slide', cParam);
+		//			console.log("sUrl" + sUrl);
+					history.pushState('', '', sUrl);
+					
+					var sName = $(this).find('span.blind').text();
+					sName = sName.toLowerCase();
+					
+					var sTitle =  $(this).parents('.cm-layer').siblings('.cp-standard-video__inner').find('.fold-text-title').text();
+					sns_share(sName, sTitle);
+				}
+			});
+			
+			$('.' + popId_VS1A + ' .js-layer-closer').on('click', function(){
+				var url = parseUri(window.location.href);
+				if(url.queryKey.sns){
+					var sUrlD = extension.updateURLParameter(window.location.href, 'sns', '');
+					sUrlD = extension.updateURLParameter(sUrlD, 'slide', '');
+					
+					history.pushState('', '', sUrlD);
+				}
+			});
+		
+		}
+	
+	});
+})(window.extension = window.extension || {}, {});
+
+//for AdobeAnalytics
+function vs1aVideo(pType, url, model, mType){
+	var externalLink = "";
+	var type = "";
+	if(mType == 'youtube'){
+		externalLink = "https://youtu.be/"+url;
+		url = "";
+	}
+	if(model.length > 0){
+		type = "PIP"
+	}
+
+	var param = {event:{
+		eventName : "VIDEO_"+pType.toUpperCase(), 
+		eventAction : url,
+		modelName : model,
+		type : type,
+		externalLink : externalLink
+	}};
+
+	aaTrackEvent(param);
+}

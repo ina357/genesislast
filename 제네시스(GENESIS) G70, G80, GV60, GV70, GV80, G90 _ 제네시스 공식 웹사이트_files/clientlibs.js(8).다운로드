@@ -1,0 +1,253 @@
+(function (global, factory) {
+    global = global;
+    global.g2 = global.g2 || {};
+    global.g2.socialInsta = global.g2.socialInsta || {};
+    global.g2.socialInsta.Component = factory();
+}(this, function () { 'use strict';
+
+    var Component = (function (isUndefined) {
+        var win = window,
+            $ = win.jQuery,
+            Util = win.G2.util;
+        function Component (container, args) {
+            if (!(this instanceof Component)) {
+                return new Component(container, args);
+            }
+            var defParams = {
+                obj : container,
+                socialContent : '.social-feed__content',
+                socialItem : '.social-feed__item',
+                socialCta : '.social-feed__cta',
+                viewLength : 0,
+                customEvent : '.Component' + (new Date()).getTime() + Math.random()
+            };
+            this.opts = Util.def(defParams, (args || {}));
+            if (!(this.obj = $(this.opts.obj)).length) return;
+            this.init();
+        }
+        Component.prototype = {
+            init : function () {
+                this.setElements();
+                this.initOpts();
+                this.bindCallbackEvents();
+            },
+            setElements : function () {
+                this.socialContent = this.obj.find(this.opts.socialContent);
+                this.socialItem = this.obj.find(this.opts.socialItem);
+                this.socialCta = this.obj.find(this.opts.socialCta);
+                this.socialBtn = this.socialCta.find('button');
+            },
+            initOpts : function () {
+                this.opts.viewLength = this.socialItem.length;
+            },
+            changeEvents : function (event) {
+                var events = [],
+                    eventNames = event.split(' ');
+                for (var key in eventNames) {
+                    events.push(eventNames[key] + this.opts.customEvent);
+                }
+                return events.join(' ');
+            },
+            bindCallbackEvents : function () {
+                this.obj.on(this.changeEvents('socialRefreshBefore'), $.proxy(this.socialRefreshBefore, this));
+                this.obj.on(this.changeEvents('socialRefreshAfter'), $.proxy(this.socialRefreshAfter, this));
+            },
+            socialRefreshBefore : function (e, data) {
+                if (data.useFocus) {
+                    this.socialCta.css('height', this.socialCta.outerHeight(true));
+                    this.socialBtn.css('display', 'none');
+                }
+            },
+            socialRefreshAfter : function (e, data) {
+                this.socialItem = this.obj.find(this.opts.socialItem);
+                var viewLength = this.socialItem.length;
+                if (data.useFocus) {
+                	//Util.findFocus(this.socialItem.eq(this.opts.viewLength)); //접근성 이슈 삭제
+                    this.socialCta.css('height', '');
+                    this.socialBtn.css('display', '');
+                }
+                this.reCommonBuild();
+                this.opts.viewLength = viewLength;
+            },
+            reCommonBuild : function () {
+                // button 갱신
+                var jsBoCmBtns = this.obj.find('.cm-btn');
+                for (var min = 0, max = jsBoCmBtns.length; min < max; min++) {
+                    (function (index) {
+                        var jsBoCmBtn = jsBoCmBtns.eq(index);
+                        if (jsBoCmBtn.attr('data-load') != 'true') {
+                            jsBoCmBtn.attr('data-load', 'true');
+                            new win.G2.Controller.CommonCta.Component(jsBoCmBtn);
+                        }
+                    })(min);
+                }
+                var jsBoCmBtnMores = this.obj.find('.cm-btn-more');
+                for (var min = 0, max = jsBoCmBtnMores.length; min < max; min++) {
+                    (function (index) {
+                        var jsBoCmBtnMore = jsBoCmBtnMores.eq(index);
+                        if (jsBoCmBtnMore.attr('data-load') != 'true') {
+                            jsBoCmBtnMore.attr('data-load', 'true');
+                            new win.G2.Controller.moreCta.Component(jsBoCmBtnMore);
+                        }
+                    })(min);
+                }
+
+                // svg 갱신
+                var jsSvgIcons = this.obj.find('.js-svg-icon');
+                for (var min = 0, max = jsSvgIcons.length; min < max; min++) {
+                    (function (index) {
+                        var jsSvgIcon = jsSvgIcons.eq(index);
+                        if (jsSvgIcon.attr('data-load') != 'true') {
+                            jsSvgIcon.attr('data-load', 'true');
+                            new win.G2.Controller.inlineSvg.Component(jsSvgIcon);
+                        }
+                    })(min);
+                }
+            },
+            reInit : function (e) {
+                // Global Callback
+            }
+        };
+
+        return Component;
+    })();
+    return Component;
+
+}));
+
+(function (global, factory) {
+    $(function () {
+        factory();
+    });
+}(this, function () { 'use strict';
+
+    var Component = (function (isUndefined) {
+        var win = window,
+            $ = win.jQuery,
+            Util = win.G2.util;
+        function Component (args) {
+            var defParams = {
+                obj : '.social-type-insta'
+            };
+            this.opts = Util.def(defParams, (args || {}));
+            if (!(this.obj = $(this.opts.obj)).length) return;
+            this.init();
+        }
+        Component.prototype = {
+            init : function () {
+                this.callComponent();
+            },
+            callComponent : function () {
+                for (var i = 0, max = this.obj.length; i < max; i++) {
+                    new win.g2.socialInsta.Component(this.obj.eq(i));
+                }
+            }
+        };
+        return new Component();
+    })();
+    return Component;
+
+}));
+
+var aInstaItems = new Array();
+var gInstaIdx = 0;
+
+$(document).ready(function(){
+	getInstaData();
+})
+
+function showMoreInsta(initType, isUndefined){
+	
+	var postCount = 3;
+	var instaItemLength = aInstaItems.length
+//	var $oOuterDiv = $("#social_insta_template #jq_social_content").clone().removeAttr("id");
+	var oOuterDiv = $.parseHTML($.trim($("#jq_social_insta_list_template").text()));
+
+	//4,5,4 에서 3,3,3으로 변경 무조건 3개인 class만 노출이므로 아래 조건 필요 없음 20210513
+	/*	if(gInstaIdx==4){
+		postCount = 5;
+		$(oOuterDiv).addClass("type-5post");
+	}*/
+	
+	var bChkLast = false;
+	$("#jq_insta_more_cta").css("display","flex");
+	for(i=0; i<postCount; i++){
+		if(gInstaIdx < instaItemLength){ 
+			var oTempItem = aInstaItems[gInstaIdx];
+			var templateText = $("#jq_social_insta_template").text();
+			
+			var oInnerDiv = $.parseHTML($.trim(templateText));
+//			var oListDiv = $.parseHTML($.trim($("#jq_social_insta_list_template").text()));
+			$(oInnerDiv).find("a").attr("href",oTempItem.url);
+			$(oInnerDiv).find("#insta_title").html(oTempItem.title);
+			$(oInnerDiv).find("#insta_description").html(oTempItem.description);
+			$(oInnerDiv).find("#jq_insta_background").css("background-image","url("+oTempItem.thumbnailUrl+")");
+			  
+			$(oOuterDiv).find('.social-feed__list').append($(oInnerDiv));
+			gInstaIdx++;
+			
+			if(gInstaIdx == instaItemLength){
+				$("#jq_insta_items_content").append($(oOuterDiv));
+				bChkLast = true;
+			}
+		}
+	}
+	
+	var focusType = (initType == isUndefined) ? true : false;
+	if(bChkLast){
+		$("#jq_insta_more_cta").css("display","none");
+	}else{
+		$("#jq_insta_more_cta").closest('.social-feed').trigger('socialRefreshBefore',{
+			useFocus : focusType
+		})
+		$("#jq_insta_items_content").append($(oOuterDiv));
+	}
+	$("#jq_insta_more_cta").closest('.social-feed').trigger('socialRefreshAfter',{
+		useFocus : focusType
+	})
+	
+	
+}
+
+function getInstaData(){
+	 var sClientId 	  			= $("#instaClientId").val();	
+	 var sInstagramAccessToken 	= $("#instaAccessToken").val();
+	 var sInstagramApiUrl 		= "https://graph.facebook.com/"+sClientId+"/media?fields=id%2Cmedia_type%2Cmedia_url%2Cpermalink%2Cthumbnail_url%2Cusername%2Ccaption&access_token="+sInstagramAccessToken+"&limit=9";//&caption=#test 	
+	  
+	 $.ajax({
+	     type: "GET",
+	     dataType: "jsonp",
+	     cache: false,
+//	     url: "https://graph.instagram.com/me/media?access_token=" + sInstagramAccessToken + "&fields=id,caption,media_type,timestamp,media_url,thumbnail_url,permalink&limit=13",
+	     url: sInstagramApiUrl,
+	     success: function(response) {
+	         if (response.data != undefined && response.data.length > 0) {
+	        	 $.each(response.data, function(i,v){
+	        		 var oTempObject = new Object(); 
+	        		 var thumbnailUrl = "";
+	        		 if(v.media_type === "VIDEO"){
+	        			 thumbnailUrl = v.thumbnail_url;
+	        		 }else{
+	        			 thumbnailUrl = v.media_url;							
+	        		 } 
+	                 
+		       		 oTempObject["thumbnailUrl"] 	= thumbnailUrl;
+		       		 oTempObject["description"] 	= v.caption;
+		       		 oTempObject["url"] 			= v.permalink;
+		       		 oTempObject["createTime"] 	= v.timestamp;
+	       		  
+		       		 aInstaItems.push(oTempObject);
+	       	  	 })
+	       	  	 showMoreInsta();
+	         }else{
+	        	 $('.social-feed-instagram.parbase').hide();
+	        	 console.log("instagram no data");
+	         }
+	     },
+	     error :function(){
+	   	    console.log("instagram error");
+	     }
+	     
+	 });
+}
+
