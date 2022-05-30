@@ -786,7 +786,7 @@ padding-top: 5rem;}
   padding-top: 3rem;
 }
 .sixth-content{width: 100%; background: #111; color: #fff;    padding:24rem 0;}
-.sixth-content .sixth-flex{display: flex; justify-content: space-between; }
+.sixth-content .sixth-flex{display: flex; justify-content: space-between; transition: .3s; }
 .sixth-content .sixth-flex .sixth-box1{width: 50%;vertical-align: top;box-sizing: border-box; position: relative;}
 .sixth-content .sixth-flex .sixth-box1:after{
   position: absolute;
@@ -805,11 +805,11 @@ padding-top: 5rem;}
 .sixth-content .sixth-flex .sixth-box1 .sixth-texts{
  position: absolute;top: 0; left: 0;  padding: 5.6rem 36rem 5.6rem 6rem; z-index: 2;}
 .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx1{}
-.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx1 span{font-weight: 200;font-size: 4.2rem;letter-spacing: -0.021em;line-height: 5rem;}
-.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx2{margin-top: 1.2rem;font-size: 1.6rem;line-height: 2.8rem; font-weight: 300;}
+.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx1 span{font-weight: 200;font-size: 4.2rem;letter-spacing: -0.021em;line-height: 5rem;transition: .3s;}
+.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx2{margin-top: 1.2rem;font-size: 1.6rem;line-height: 2.8rem; font-weight: 300; transition: .3s;}
 .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3{margin-top: 2.1rem;}
 .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a{}
-.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a span{color: #fff; font-size: 1.6rem; position: relative;}
+.sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a span{color: #fff; font-size: 1.6rem; position: relative;transition: .3s;}
 .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a span::after{
  content: "";
  position: absolute;
@@ -901,6 +901,10 @@ span.six-position2::after{top: 35%;}
    .three-footer .three-footer-menu ul li a i{margin-right: 0.8rem;text-align: center;}
    .three-footer .three-en-ko button{display: none;}
    .three-inner{padding: 4rem 16rem;}
+   .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx2{     font-size: 1.2rem; line-height: 1.6rem; font-weight: 300;}
+    .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx1 span{font-weight: 200;font-size: 2.8rem;letter-spacing: -0.021em;line-height: 4rem;}
+   .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a span{color: #fff; font-size: 1.2rem;}
+   .sixth-content .sixth-flex .sixth-box1 .sixth-texts .sixth-tx3 a:hover span::before{width: 5.5rem;}
 
 
 
