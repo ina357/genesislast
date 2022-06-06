@@ -1012,7 +1012,7 @@ span.six-position2::after{top: 35%;}
     .f-content-text>h2{font-size: 3.2rem; }
     .f-content-text>p{font-size: 1.6rem;}
     .f-slide-wrap{ width: 35rem;padding: 3.9rem 4rem 4.9rem; }
-    .f-swiper-slide {padding: 0 6rem 7rem; }
+    .f-swiper-slide {padding:3rem 6rem 7rem; }
     .f-swiper{ max-width: 50rem;}
     .f-white{margin: 3rem 2rem 0;width: 24rem; height: 4.9rem;}
     .f-white>a{font-size: 1.6rem; line-height: 4.9rem;}
@@ -1174,8 +1174,33 @@ span.six-position2::after{top: 35%;}
     .sixth-content {padding: 7rem 0;}
     .fifth-content { height: 32rem; padding-bottom: 10rem;}
     .fifth-inner p.fifth-tocontentTop3{font-size: 1.6rem; line-height: 2rem;padding-top: 13rem;}
-    
- 
+    .f-btn-n {
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid #fff;
+      position: absolute;
+      margin-right: 3rem;
+      top: 22rem;
+      border-width: 2px 2px 0 0;
+       }
+       span.six-position1::after {
+        top: 23%;
+    }
+    .f-btn-p {
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid #fff;
+      position: absolute;
+      margin-right: 3rem;
+      top: 22rem;
+      border-width:0 0 2px 2px;
+       }
+       span.six-position1::after {
+        top: 23%;
+    }
+    .video-btn{width: 5rem;height: 5rem;}
+    .content-btn-prev{display: none;}
+    .content-btn-next{display: none;}
 }
 
 
